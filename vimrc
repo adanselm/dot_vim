@@ -196,6 +196,7 @@ set cindent
 set autoindent
 set smarttab
 set expandtab
+set pastetoggle=<F12> " pastetoggle (sane indentation on pastes)
 
 " ---------------
 " Searching
@@ -206,6 +207,7 @@ set incsearch
 set hlsearch
 set wildignore+=*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,
   \.sass-cache,*.class,*.scssc,*.cssc,sprockets%*,*.lessc
+set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
 
 " ---------------
 " Visual
@@ -299,6 +301,11 @@ nmap gy :%y+<cr>
 " Hat-tip http://vimbits.com/bits/11
 nnoremap Y y$
 
+" Switch easily between buffers
+"nmap <Tab> :bn<CR>
+nmap <S-Tab> :bp<CR>
+
+
 " ---------------
 " Leader Commands
 " ---------------
@@ -357,6 +364,14 @@ nmap <silent> <leader>sv :vsplit<CR>
 nmap <silent> <leader>hs :split<CR>
 nmap <silent> <leader>vs :vsplit<CR>
 nmap <silent> <leader>sc :close<CR>
+
+" Switch between header and implementation files (using the 'a.vim' plugin)
+nmap <leader>f :A<CR>
+
+" Avoid cursor skipping wrapped line (more natural)
+nnoremap j gj
+nnoremap k gk
+
 
 " -----------------------------------------------------------
 " The following commands are from Janus, http://git.io/_GhulA
@@ -756,4 +771,7 @@ if has("autocmd")
 
   " Fix trailing whitespace in my most used programming langauges
   autocmd BufWritePre *.py,*.coffee,*.rb silent! :StripTrailingWhiteSpace
+
+  " always switch to the current file directory.
+  autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 endif
