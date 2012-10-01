@@ -84,6 +84,11 @@ Bundle 'acustodioo/vim-tmux'
 Bundle 'hallison/vim-markdown'
 Bundle 'xhtml.vim--Grny'
 Bundle 'groenewege/vim-less'
+Bundle 'TagHighlight'
+Bundle 'Tagbar'
+Bundle 'AutoTag'
+Bundle 'a.vim'
+Bundle 'lua.vim'
 " MatchIt
 Bundle 'matchit.zip'
 Bundle 'kana/vim-textobj-user'
@@ -248,6 +253,13 @@ set mouse=a  " Mouse in all modes
 
 " Better complete options to speed it up
 set complete=.,w,b,u,U
+
+" ---------------
+" Ctags
+" ---------------
+" Search for tagfile in the current file directory first, then work up dir
+" til it founds. Or use the global one.
+set tags=./.tags;/,~/.vimtags
 
 " ----------------------------------------
 " Bindings
@@ -614,6 +626,33 @@ vmap <Leader>md :MarkdownPreview<CR>
 nmap <Leader>bi :BundleInstall<CR>
 nmap <Leader>bu :BundleInstall!<CR> " Because this also updates
 nmap <Leader>bc :BundleClean<CR>
+
+" ---------------
+" TagBar
+" ---------------
+let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+nmap <Leader>tt :TagbarToggle<CR>
+
+" ---------------
+" TagHighlight
+" ---------------
+" Set path to Exuberant ctags
+if ! exists('g:TagHighlightSettings')
+  let g:TagHighlightSettings = {}
+endif
+let g:TagHighlightSettings['CtagsExecutable']='/usr/local/bin/ctags'
+let g:TagHighlightSettings['ProjectConfigFileSearchWildcards']='.taghl_config.txt'
+let g:TagHighlightSettings['ProjectConfigFileName']='.taghl_config.txt'
+let g:TagHighlightSettings['TagFileSearchWildcards']='.tags'
+let g:TagHighlightSettings['TagFileName']='.tags'
+let g:TagHighlightSettings['TypesFileSearchWildcards']='.types*'
+let g:TagHighlightSettings['TypesFilePrefix']='.types'
+
+" ---------------
+" Autotag
+" ---------------
+let g:autotagCtagsCmd='/usr/local/bin/ctags'
+let g:autotagTagsFile='.tags'
 
 " ----------------------------------------
 " Functions
